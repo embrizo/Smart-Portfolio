@@ -29,6 +29,13 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+const getYouTubeId = (url: string) => {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+};
+
 export default function ProjectDetailPage({ params }: PageProps) {
   const { slug } = use(params);
   const project = (projects as Project[]).find((p) => p.slug === slug);
@@ -41,6 +48,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const youtubeId = project.video ? getYouTubeId(project.video) : null;
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -185,46 +193,59 @@ export default function ProjectDetailPage({ params }: PageProps) {
                 ? "aspect-[9/16] max-w-[340px]" 
                 : "aspect-video max-w-4xl"
             }`}>
-              <video
-                ref={videoRef}
-                src={project.video}
-                loop
-                muted={isMuted}
-                playsInline
-                className="w-full h-full object-cover"
-                onClick={togglePlay}
-              />
-              
-              {/* Overlay controls */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <div className="flex items-center justify-between">
-                  {/* Play/Pause */}
-                  <button 
+              {youtubeId ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=0&rel=0`}
+                  title="Video demonstration"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full absolute inset-0"
+                />
+              ) : (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={project.video}
+                    loop
+                    muted={isMuted}
+                    playsInline
+                    className="w-full h-full object-cover"
                     onClick={togglePlay}
-                    className="p-3 bg-accent text-white rounded-full cursor-pointer hover:bg-accent/80 transition-colors shadow-md"
-                    aria-label={isPlaying ? "Pause Video" : "Play Video"}
-                  >
-                    {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                  </button>
+                  />
+                  
+                  {/* Overlay controls */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex items-center justify-between">
+                      {/* Play/Pause */}
+                      <button 
+                        onClick={togglePlay}
+                        className="p-3 bg-accent text-white rounded-full cursor-pointer hover:bg-accent/80 transition-colors shadow-md"
+                        aria-label={isPlaying ? "Pause Video" : "Play Video"}
+                      >
+                        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                      </button>
 
-                  {/* Volume Control */}
-                  <button 
-                    onClick={toggleMute}
-                    className="p-3 bg-black/40 hover:bg-black/60 text-white rounded-full cursor-pointer transition-colors"
-                    aria-label={isMuted ? "Unmute Video" : "Mute Video"}
-                  >
-                    {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Big Initial Play Button if not playing */}
-              {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
-                  <div className="p-5 bg-accent/90 text-white rounded-full shadow-lg shadow-accent/25 animate-pulse">
-                    <Play size={32} fill="white" className="translate-x-0.5" />
+                      {/* Volume Control */}
+                      <button 
+                        onClick={toggleMute}
+                        className="p-3 bg-black/40 hover:bg-black/60 text-white rounded-full cursor-pointer transition-colors"
+                        aria-label={isMuted ? "Unmute Video" : "Mute Video"}
+                      >
+                        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                      </button>
+                    </div>
                   </div>
-                </div>
+
+                  {/* Big Initial Play Button if not playing */}
+                  {!isPlaying && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                      <div className="p-5 bg-accent/90 text-white rounded-full shadow-lg shadow-accent/25 animate-pulse">
+                        <Play size={32} fill="white" className="translate-x-0.5" />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
