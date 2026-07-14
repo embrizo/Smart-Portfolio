@@ -104,6 +104,13 @@ export default function Home() {
     return cert.issuer !== "PTC Field Academy" && cert.issuer !== "PTC University";
   });
 
+  // Filter projects to exclude Hobby & App category from the main page
+  const mainProjects = projects.filter(
+    (p) =>
+      !p.category.toLowerCase().includes("hobby") &&
+      !p.category.toLowerCase().includes("habit")
+  );
+
   // Telemetry simulation states for industrial feel
   const [telemetry, setTelemetry] = useState({
     oee: 96.8,
@@ -317,7 +324,7 @@ export default function Home() {
           variants={containerVariants}
           className="projects-grid"
         >
-          {projects.map((project, idx) => (
+          {mainProjects.map((project, idx) => (
             <Link 
               href={`/projects/${project.slug}`} 
               key={idx}

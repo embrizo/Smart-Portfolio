@@ -11,6 +11,7 @@ import { profile } from "@/data/portfolio";
 const navItems = [
   { label: "About", path: "/#about" },
   { label: "Projects", path: "/#projects" },
+  { label: "Hobby & App", path: "/hobby-app" },
   { label: "Skills", path: "/#skills" },
   { label: "Experience", path: "/#experience" },
   { label: "Certifications", path: "/#certifications" },
@@ -72,7 +73,10 @@ export default function Header() {
   }, [pathname]);
 
   const isItemActive = (item: typeof navItems[0]) => {
-    return pathname === "/" && activeSection === item.label.toLowerCase();
+    if (item.path.startsWith("/#")) {
+      return pathname === "/" && activeSection === item.label.toLowerCase();
+    }
+    return pathname === item.path;
   };
 
   const navVariants = {

@@ -235,6 +235,85 @@ export const projects = [
       "Detected 3 major pneumatic line pressure drops, preventing potential production downtime.",
       "Created real-time OEE dashboards showing power usage per cubic meter of compressed air."
     ]
+  },
+  {
+    slug: "find-the-corgi",
+    title: "Find the Corgi",
+    category: "Hobby & App",
+    description:
+      "An interactive English-Thai vocabulary learning game for kids. Search detailed scenes to find the hidden Corgi and learn over 1,000 words through voice and visuals.",
+    image: "/hobby and app/find-corgi/Screenshot 2026-07-14 120102.png",
+    tags: ["Firebase Auth", "HTML5 Canvas", "Tailwind CSS", "Interactive Learning", "Text-to-Speech"],
+    longDescription:
+      "Find the Corgi is a gamified, interactive educational web application designed to help children learn English and Thai vocabulary. The game prompts users to explore detailed illustrated scenes to find a hidden Corgi along with 75 distinct items per scene. Users can click on items to view their Thai/English translations, listen to correct pronunciations, and unlock a Corgi Quiz to test their learning. It includes Firebase Authentication (Google Log In / Guest Play), a Sticker Book achievement system, parental gate controls, and a parents' progress dashboard tracking vocabulary statistics and review terms.",
+    details: [
+      { label: "App Link", value: "https://find-corgi.ai.studio/" },
+      { label: "Role", value: "Solo Creator & Developer" },
+      { label: "Platforms", value: "Vite, HTML5 Canvas, Firebase, Tailwind CSS" },
+      { label: "Target Audience", value: "Children & Bilingual Learners" },
+      { label: "Year", value: "2026" }
+    ],
+    results: [
+      "Designed and coded detailed interactive scenes with fluid pan and zoom capabilities.",
+      "Integrated Firebase Authentication supporting Google Login and guest sessions.",
+      "Embedded text-to-speech audio rendering for bilingual pronunciation verification.",
+      "Created Parental Gate features alongside a dashboard to log child vocabulary scores and review lists."
+    ],
+    gallery: [
+      "/hobby and app/find-corgi/qr-code.png",
+      "/hobby and app/find-corgi/Screenshot 2026-07-14 120127.png",
+      "/hobby and app/find-corgi/Screenshot 2026-07-14 120249.png"
+    ]
+  },
+  {
+    slug: "culinary-wheel",
+    title: "Whatever, anything is fine - Random Food Picker",
+    category: "Hobby & App",
+    description:
+      "A React-based interactive random food selection tool ('วันนี้กินอะไรดี') featuring a spin wheel and custom options to solve daily food decision fatigue.",
+    image: "/hobby and app/what-to-eat/picker-cover.png",
+    tags: ["React", "Vite", "Tailwind CSS", "Decision Maker", "HTML5 Canvas"],
+    video: "/hobby and app/what-to-eat/demo.mp4",
+    videoAspect: "9:16",
+    longDescription:
+      "This application, titled 'Whatever, anything is fine' (วันนี้กินอะไรดี / อะไรก็ได้), is an interactive random food picker built as a lighthearted utility tool to solve daily dining decision fatigue. It features a customizable, visually engaging spinning wheel. Users can modify choices, add custom dishes, adjust weighting/probabilities, spin the wheel with responsive animations, and get random suggestions. The application is built using Vite and React, running in a containerized environment deployed on Google Cloud Run.",
+    details: [
+      { label: "App Link", value: "https://culinary-wheel-588331211644.asia-southeast1.run.app/" },
+      { label: "Role", value: "Solo Creator & Developer" },
+      { label: "Platforms", value: "React, Vite, HTML5 Canvas, Tailwind CSS" },
+      { label: "Deployment", value: "Google Cloud Run" },
+      { label: "Year", value: "2026" }
+    ],
+    results: [
+      "Provides a smooth, canvas-rendered spinning wheel animation with inertia physics.",
+      "Supports adding, editing, and disabling specific food items dynamically.",
+      "Deploys in a serverless, highly-available container on Google Cloud Run.",
+      "Includes a clean dark-mode UI with high-contrast elements suitable for quick mobile viewing."
+    ]
+  },
+  {
+    slug: "the-aetherium-void",
+    title: "AI Short Movie: The Aetherium Void",
+    category: "Hobby & App",
+    description:
+      "An AI-generated sci-fi short film compiling cinematic AI renders, deep space visual effects, and a generated synthesized audio track.",
+    image: "/hobby and app/ai-short-movie/cover.png",
+    tags: ["AI Movie", "Visual Effects", "Sci-Fi", "Stable Diffusion", "Midjourney"],
+    video: "/hobby and app/ai-short-movie/the-aetherium-void.mp4",
+    videoAspect: "9:16",
+    longDescription:
+      "The Aetherium Void is an AI-generated sci-fi short film that showcases the fusion of cognitive artificial intelligence, neural rendering models, and cinematic audio production. The film compiles highly-detailed space visuals, futuristic ship models, and celestial portal animations into a fluid sci-fi narrative. Generative video tools were utilized to animate scenes from text prompts, alongside AI audio synthesis for the ambient background track.",
+    details: [
+      { label: "Role", value: "Director & AI Prompt Architect" },
+      { label: "Platforms", value: "Stable Diffusion, Midjourney, Runway Gen-2" },
+      { label: "VFX & Audio", value: "Generative AI Video, Synthesized Audio" },
+      { label: "Year", value: "2026" }
+    ],
+    results: [
+      "Generates deep space visual renders and particle flows utilizing state-of-the-art diffusion models.",
+      "Integrates AI video sequences with sound synchronization.",
+      "Achieved cinematic quality and narrative flow without traditional CAD or rendering farms."
+    ]
   }
 ];
 

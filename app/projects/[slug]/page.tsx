@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Play, Pause, Volume2, VolumeX, ShieldAlert, CheckCircle2, Cpu, Calendar, User, Network, FileText } from "lucide-react";
+import { ArrowLeft, Play, Pause, Volume2, VolumeX, ShieldAlert, CheckCircle2, Cpu, Calendar, User, Network, FileText, ExternalLink } from "lucide-react";
 import { projects } from "@/data/portfolio";
 import Header from "@/app/components/Header";
 
@@ -20,6 +20,7 @@ interface Project {
   details: { label: string; value: string }[];
   results: string[];
   video?: string;
+  videoAspect?: string;
   gallery?: string[];
   documents?: { name: string; url: string }[];
 }
@@ -66,6 +67,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
     if (l.includes("platform") || l.includes("program")) return <Cpu size={16} className="text-blue-500" />;
     if (l.includes("connectivity") || l.includes("hardware")) return <Network size={16} className="text-amber-500" />;
     if (l.includes("input") || l.includes("output")) return <FileText size={16} className="text-purple-500" />;
+    if (l.includes("link") || l.includes("url") || l.includes("website")) return <ExternalLink size={16} className="text-cyan-500" />;
     return <CheckCircle2 size={16} className="text-muted" />;
   };
 
@@ -79,11 +81,19 @@ export default function ProjectDetailPage({ params }: PageProps) {
       <main className="flex-1 max-w-7xl mx-auto px-4 py-8 sm:py-12 w-full z-10">
         {/* Back Link */}
         <Link 
-          href="/#projects" 
+          href={
+            project.category.toLowerCase().includes("hobby") ||
+            project.category.toLowerCase().includes("habit")
+              ? "/hobby-app"
+              : "/#projects"
+          } 
           className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-foreground mb-8 transition-colors group"
         >
           <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
-          Back to Portfolio
+          {project.category.toLowerCase().includes("hobby") ||
+          project.category.toLowerCase().includes("habit")
+            ? "Back to Hobby & App"
+            : "Back to Portfolio"}
         </Link>
 
         {/* Hero Section */}
@@ -122,7 +132,19 @@ export default function ProjectDetailPage({ params }: PageProps) {
                       {detail.label}
                     </span>
                     <span className="text-foreground font-semibold text-right max-w-[60%]">
-                      {detail.value}
+                      {detail.value.startsWith("http") ? (
+                        <a
+                          href={detail.value}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent hover:underline inline-flex items-center gap-1 hover:text-accent-secondary transition-colors"
+                        >
+                          Visit Site
+                          <ExternalLink size={14} className="inline flex-shrink-0" />
+                        </a>
+                      ) : (
+                        detail.value
+                      )}
                     </span>
                   </div>
                 ))}
@@ -158,7 +180,11 @@ export default function ProjectDetailPage({ params }: PageProps) {
         {project.video && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">Video Demonstration</h2>
-            <div className="glass-panel overflow-hidden rounded-3xl relative aspect-video shadow-2xl border border-border/80 bg-black max-w-4xl mx-auto">
+            <div className={`glass-panel overflow-hidden rounded-3xl relative shadow-2xl border border-border/80 bg-black mx-auto ${
+              project.videoAspect === "9:16" 
+                ? "aspect-[9/16] max-w-[340px]" 
+                : "aspect-video max-w-4xl"
+            }`}>
               <video
                 ref={videoRef}
                 src={project.video}
@@ -252,20 +278,31 @@ export default function ProjectDetailPage({ params }: PageProps) {
           <div className="mt-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">Project Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {project.gallery.map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="glass-panel overflow-hidden rounded-2xl relative h-[240px] border border-border/80 group hover:shadow-lg hover:shadow-accent-glow hover:border-border-hover transition-all duration-300"
-                >
-                  <Image
-                    src={img}
-                    alt={`${project.title} gallery ${idx + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-              ))}
+              {project.gallery.map((img, idx) => {
+                const isQrCode = img.toLowerCase().includes("qr");
+                return (
+                  <div 
+                    key={idx} 
+                    className={`glass-panel overflow-hidden rounded-2xl relative h-[240px] border border-border/80 group transition-all duration-300 ${
+                      isQrCode 
+                        ? "bg-white flex items-center justify-center p-4" 
+                        : "hover:shadow-lg hover:shadow-accent-glow hover:border-border-hover"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${project.title} gallery ${idx + 1}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className={`transition-transform duration-500 ${
+                        isQrCode 
+                          ? "object-contain p-6 group-hover:scale-[1.02]" 
+                          : "object-cover group-hover:scale-105"
+                      }`}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
