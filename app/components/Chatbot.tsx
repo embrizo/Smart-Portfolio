@@ -171,7 +171,7 @@ C# · JavaScript · Python · SQL · PostgreSQL · Node-RED`,
 **AI & Cloud:**
 ✅ AI Foundations (OpenAI Academy)
 ✅ Introduction to Agent Skills (Anthropic)
-✅ Claude 101 & Claude Code 101 (Anthropic)
+✅ Claude Platform 101, Claude Code 101 & Claude 101 (Anthropic)
 ✅ AWS Cloud Essentials (AWS Training)
 
 View all certificate PDFs in the **Certifications** section!`,

@@ -351,6 +351,13 @@ export const experience = [
 
 export const certifications = [
   {
+    name: "Claude Platform 101",
+    issuer: "Anthropic",
+    recipient: "Pattapon Thongnak",
+    date: "July 22, 2026",
+    file: "/certificates/certificate-claude-platform-101.pdf"
+  },
+  {
     name: "AI Foundations",
     issuer: "OpenAI Academy",
     recipient: "Newz Ang",
